@@ -1,0 +1,20 @@
+#!/bin/bash
+
+RELATIVE_PATH=$( dirname "$( readlink -f "${BASH_SOURCE[0]}" )" )
+FILE="${RELATIVE_PATH}/env_name.txt"
+ENV_NAME=$(cat $FILE)
+
+if [ $CONDA_DEFAULT_ENV == $ENV_NAME ];then
+	return
+fi
+
+source ~/miniconda3/etc/profile.d/conda.sh
+
+if test -f "$FILE"; then
+	eval "$(command conda 'shell.bash' 'hook' 2> /dev/null)"
+	echo $ENV_NAME
+	conda activate $ENV_NAME
+	echo "Loaded"
+else
+	echo "There is no default env saved"
+fi
