@@ -12,9 +12,8 @@ source ~/miniconda3/etc/profile.d/conda.sh
 
 if test -f "$FILE"; then
 	eval "$(command conda 'shell.bash' 'hook' 2> /dev/null)"
-	echo $ENV_NAME
 	conda activate $ENV_NAME
-	echo "Loaded"
+	echo "CONDA_DEFAULT: Loaded \"$ENV_NAME\" as default env."
 else
 	echo "There is no default env saved"
 fi
